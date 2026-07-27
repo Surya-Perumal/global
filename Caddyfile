@@ -1,0 +1,46 @@
+:{$PORT:80} {
+    root * /app
+
+    # 1. Exact route mapping (equivalent to Apache's RewriteRule ^route/?$ file.php)
+    @services path /services /services/
+    rewrite @services /service.php
+    
+    @courses path /courses /courses/
+    rewrite @courses /course.php
+
+    @about path /about /about/
+    rewrite @about /about.php
+
+    @contact path /contact /contact/
+    rewrite @contact /contact.php
+
+    @blogs path /blogs /blogs/
+    rewrite @blogs /blogs.php
+
+    @blog-detail path /blog-detail /blog-detail/
+    rewrite @blog-detail /blog-detail.php
+
+    rewrite /study-in-canada /study_in_canada.php
+    rewrite /study-in-australia /study_in_australia.php
+    rewrite /study-in-germany /study_in_germany.php
+    rewrite /study-in-ireland /study_in_ireland.php
+    rewrite /study-in-singapore /study_in_singapore.php
+    rewrite /study-in-uk /study_in_uk.php
+    rewrite /study-in-usa /study_in_usa.php
+    rewrite /study-in-new-zealand /study_in_newzealand.php
+
+    # 2. Append .php if the requested path doesn't exist but the .php file does
+    # Equivalent to: RewriteCond %{REQUEST_FILENAME}.php -f -> RewriteRule ^(.*)$ $1.php
+    @phpFile file {path}.php
+    rewrite @phpFile {path}.php
+
+    # 3. Handle PHP execution
+    # php_fastcgi normally falls back to index.php if the file isn't found.
+    # To mimic exact Apache behavior (404 on missing files instead of routing to index.php)
+    # we can redefine try_files to omit the final index.php fallback, or just use the default.
+    # Default is usually fine, but if you strictly want 404s for missing files:
+    php_fastcgi 127.0.0.1:9000
+
+    # 4. Serve static files
+    file_server
+}

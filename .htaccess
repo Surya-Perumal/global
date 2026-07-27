@@ -1,0 +1,31 @@
+RewriteEngine On
+RewriteBase /global/
+
+# Don't rewrite existing files or folders
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Routes
+RewriteRule ^$ index.php [L]
+RewriteRule ^services/?$ service.php [L,QSA]
+RewriteRule ^courses/?$ course.php [L,QSA]
+RewriteRule ^about/?$ about.php [L,QSA]
+RewriteRule ^contact/?$ contact.php [L,QSA]
+RewriteRule ^blogs/?$ blogs.php [L,QSA]
+RewriteRule ^blog-detail/?$ blog-detail.php [L,QSA]
+
+# Rewrite hyphenated study-in URLs to actual files with underscores
+RewriteRule ^study-in-canada/?$ study_in_canada.php [L,QSA]
+RewriteRule ^study-in-australia/?$ study_in_australia.php [L,QSA]
+RewriteRule ^study-in-germany/?$ study_in_germany.php [L,QSA]
+RewriteRule ^study-in-ireland/?$ study_in_ireland.php [L,QSA]
+RewriteRule ^study-in-singapore/?$ study_in_singapore.php [L,QSA]
+RewriteRule ^study-in-uk/?$ study_in_uk.php [L,QSA]
+RewriteRule ^study-in-usa/?$ study_in_usa.php [L,QSA]
+RewriteRule ^study-in-new-zealand/?$ study_in_newzealand.php [L,QSA]
+
+# Remove .php extension
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php [L]
