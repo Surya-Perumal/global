@@ -698,12 +698,15 @@
         padding: 30px 0%;
         min-height: auto;
     }
-  .work-opportunities-section .section-title{
-    margin-bottom: 50px;}
+
+    .work-opportunities-section .section-title {
+        margin-bottom: 50px;
+    }
+
     .section-title,
     .destinations-title,
     h2 {
-             
+
         font-size: 20px !important;
     }
 
@@ -1559,7 +1562,9 @@ h2 {
     .bottom-cta-illustration {
         display: none;
     }
-}/* Content Section Styles */
+}
+
+/* Content Section Styles */
 .content-section {
     padding: 80px 0;
     position: relative;
